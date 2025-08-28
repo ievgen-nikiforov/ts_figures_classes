@@ -7,28 +7,40 @@ export interface Figure {
 export class Triangle implements Figure {
   shape: 'triangle' = 'triangle';
 
-  constructor(
-    public color: Figure['color'],
-    private a: number,
-    private b: number,
-    private c: number,
-  ) {}
+  public color: Figure['color'];
+
+  private a: number;
+
+  private b: number;
+
+  private c: number;
+
+  constructor(color: Figure['color'], a: number, b: number, c: number) {
+    this.color = color;
+    this.a = a;
+    this.b = b;
+    this.c = c;
+  }
 
   getArea(): number {
     const s = (this.a + this.b + this.c) / 2;
     const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
 
-    return Math.floor(area * 100) / 100; // round down to 2 decimals
+    return Math.floor(area * 100) / 100;
   }
 }
 
 export class Circle implements Figure {
   shape: 'circle' = 'circle';
 
-  constructor(
-    public color: Figure['color'],
-    private r: number,
-  ) {}
+  public color: Figure['color'];
+
+  private r: number;
+
+  constructor(color: Figure['color'], r: number) {
+    this.color = color;
+    this.r = r;
+  }
 
   getArea(): number {
     const area = Math.PI * this.r * this.r;
@@ -40,11 +52,17 @@ export class Circle implements Figure {
 export class Rectangle implements Figure {
   shape: 'rectangle' = 'rectangle';
 
-  constructor(
-    public color: Figure['color'],
-    private width: number,
-    private height: number,
-  ) {}
+  public color: Figure['color'];
+
+  private width: number;
+
+  private height: number;
+
+  constructor(color: Figure['color'], width: number, height: number) {
+    this.color = color;
+    this.width = width;
+    this.height = height;
+  }
 
   getArea(): number {
     const area = this.width * this.height;
@@ -53,7 +71,9 @@ export class Rectangle implements Figure {
   }
 }
 
-// Helper
 export function getInfo(figure: Figure): string {
-  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
+  // если хочешь показывать именно «срезанные» до сотых:
+  const area = Math.floor(figure.getArea() * 100) / 100;
+
+  return `A ${figure.color} ${figure.shape} - ${area}`;
 }
