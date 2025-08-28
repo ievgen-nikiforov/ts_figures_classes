@@ -24,7 +24,8 @@ export class Triangle implements Figure {
 
     if (longest >= a + b + c - longest) {
       throw new Error(
-        'Invalid triangle: longest side must be smaller than the sum of the other two sides',
+        'Invalid triangle: longest side must be smaller than the sum of ' +
+          'the other two sides',
       );
     }
 
