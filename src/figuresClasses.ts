@@ -16,6 +16,18 @@ export class Triangle implements Figure {
   private c: number;
 
   constructor(color: Figure['color'], a: number, b: number, c: number) {
+    if (a <= 0 || b <= 0 || c <= 0) {
+      throw new Error('Triangle side lengths must be greater than 0');
+    }
+
+    const longest = Math.max(a, b, c);
+
+    if (longest >= a + b + c - longest) {
+      throw new Error(
+        'Invalid triangle: longest side must be smaller than the sum of the other two sides',
+      );
+    }
+
     this.color = color;
     this.a = a;
     this.b = b;
@@ -38,6 +50,10 @@ export class Circle implements Figure {
   private r: number;
 
   constructor(color: Figure['color'], r: number) {
+    if (r <= 0) {
+      throw new Error('Circle radius must be greater than 0');
+    }
+
     this.color = color;
     this.r = r;
   }
@@ -59,6 +75,10 @@ export class Rectangle implements Figure {
   private height: number;
 
   constructor(color: Figure['color'], width: number, height: number) {
+    if (width <= 0 || height <= 0) {
+      throw new Error('Rectangle sides must be greater than 0');
+    }
+
     this.color = color;
     this.width = width;
     this.height = height;
@@ -71,9 +91,7 @@ export class Rectangle implements Figure {
   }
 }
 
+// Helper
 export function getInfo(figure: Figure): string {
-  // если хочешь показывать именно «срезанные» до сотых:
-  const area = Math.floor(figure.getArea() * 100) / 100;
-
-  return `A ${figure.color} ${figure.shape} - ${area}`;
+  return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
